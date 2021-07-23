@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class ApplicationCon {
 
-	private static Logger LOG = LoggerFactory.getLogger(ApplicationTests.class);
+	private static Logger LOG = LoggerFactory.getLogger(ApplicationCon.class);
 
 	@Test
 	public void testHello() {
