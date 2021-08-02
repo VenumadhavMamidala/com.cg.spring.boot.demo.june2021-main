@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,34 +20,35 @@ import com.cg.spring.boot.demo.model.Employee;
 import com.cg.spring.boot.demo.service.EmployeeService;
 
 @RestController
+@CrossOrigin (origins= "Localhost:3001")
 public class EmployeeController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private EmployeeService service;
-
+	
 	@GetMapping("/emp") // endpoint , API
 	public Employee getEmployee() {
 		LOG.info("emp");
 		return service.findEmployeeById(101);
 	}
 
-//	@GetMapping("/getemp/{eid}")
-//	public Employee getEmployeeById(@PathVariable("eid") int eid) {
-//		LOG.info("getemp");
-//		return service.findEmployeeById(eid);
-//	}
-	
 	@GetMapping("/getemp/{eid}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable("eid") int eid) {
+	public Employee getEmployeeById(@PathVariable("eid") int eid) {
 		LOG.info("getemp");
-		Employee emp = service.findEmployeeById(eid);
-		if (emp != null)
-			return new ResponseEntity<Employee>(emp, HttpStatus.OK);
-		else
-			return new ResponseEntity<Employee>(emp, HttpStatus.NOT_FOUND);
+		return service.findEmployeeById(eid);
 	}
+	
+//	@GetMapping("/getemp/{eid}")
+//	public ResponseEntity<Employee> getEmployeeById(@PathVariable("eid") int eid) {
+//		LOG.info("getemp");
+//		Employee emp = service.findEmployeeById(eid);
+//		if (emp != null)
+//			return new ResponseEntity<Employee>(emp, HttpStatus.OK);
+//		else
+//			return new ResponseEntity<Employee>(emp, HttpStatus.NOT_FOUND);
+//	}
 
 	@GetMapping("/getempbyname/{ename}")
 	public List<Employee> getEmpByEname(@PathVariable("ename") String ename) {
